@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmls:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -9,7 +9,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">My ZSTU</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -40,11 +40,26 @@
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                <button class="btn my-2 my-sm-0" type="submit">Link</button>
-                <a class="btn btn-primary my-2 my-sm-0"
-                   href="https://github.com/login/oauth/authorize?client_id=27dda83ebd33236043d4&redirect_uri=http://localhost:8080/callback&scope=user&state=1"
-                   role="button">Login</a>
             </form>
+            <ul class="nav navbar-nav navabr-right">
+                <li class="nav-item dropdown" th:if="${session.user != null}">
+                    <a class="nav-link dropdown-toggle" href="#" id="login" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}">
+
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">退出</a>
+                    </div>
+                </li>
+                <li class="nav-item" th:if="${session.user == null}">
+                    <a class="btn btn-primary my-2 my-sm-0"
+                       href="https://github.com/login/oauth/authorize?client_id=27dda83ebd33236043d4&redirect_uri=http://localhost:8080/callback&scope=user&state=1"
+                       role="button">Login</a>
+                </li>
+            </ul>
         </div>
     </nav>
 
