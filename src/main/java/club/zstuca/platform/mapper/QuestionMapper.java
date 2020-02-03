@@ -3,6 +3,7 @@ package club.zstuca.platform.mapper;
 import club.zstuca.platform.model.Question;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
@@ -15,4 +16,8 @@ public interface QuestionMapper {
     void create(Question question);
     @Select("SELECT * FROM question")
     List<Question> list();
+    @Select("SELECT * FROM question LIMIT #{offset}, #{size}")
+    List<Question> listAndLimit(@Param("offset") Integer offset,@Param("size") Integer size);
+    @Select("SELECT count(1) FROM question")
+    Integer count();
 }

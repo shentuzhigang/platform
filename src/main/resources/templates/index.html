@@ -66,7 +66,7 @@
         </div>
     </nav>
     <div class="container" style="margin-top: 15px">
-        <div class="container-fluid">
+        <div class="container-fluid" style="margin: 25px">
             <div class="jumbotron">
                 <h1 class="display-4">Hello, world!</h1>
                 <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
@@ -83,7 +83,7 @@
                         One of three columns
                     </h2>
                     <hr>
-                    <div class="media" th:each="question : ${questions}">
+                    <div class="media" th:each="question : ${pagination.questionDTOList}">
                         <div class="media-left col-lg-2 col-md-2 col-sm-2 col-xs-2">
                             <a href="#">
                                 <img th:src="${question.user.avatarUrl}" class="media-object rounded mr-3 col-lg-12 col-md-12 col-sm-12 col-xs-12" alt="...">
@@ -111,6 +111,51 @@
                             </div>
                         </div>
                     </div>
+                    <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group mr-2" role="group" aria-label="First group">
+                            <a class="btn btn-primary"
+                               href="/index?page=1)}"
+                               role="button"
+                               th:if="${pagination.showFirstPage}"
+                            >
+                                &lt;&lt;
+                            </a>
+                            <a class="btn btn-primary"
+                               th:href="@{/index(page=${pagination.nowPage - 1})}"
+                               role="button"
+                               th:if="${pagination.showPrePage}"
+                            >
+                                &lt;
+                            </a>
+                        </div>
+                        <div class="btn-group mr-2" role="group" aria-label="Second group" >
+                            <a class="btn btn-primary"
+                               th:href="@{/index(page=${page})}"
+                               role="button"
+                               th:each="page : ${pagination.pages}"
+                               th:text="${page}"
+                               th:class="${pagination.nowPage==page}?'btn btn-primary active':'btn btn-primary'"
+                            >
+                                Login
+                            </a>
+                        </div>
+                        <div class="btn-group" role="group" aria-label="Third group">
+                            <a class="btn btn-primary"
+                               th:href="@{/index(page=${pagination.nowPage + 1})}"
+                               role="button"
+                               th:if="${pagination.showNextPage}"
+                            >
+                                &gt;
+                            </a>
+                            <a class="btn btn-primary"
+                               th:href="@{/index(page=${pagination.totalPage})}"
+                               role="button"
+                               th:if="${pagination.showEndPage}"
+                            >
+                                &gt;&gt;
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                     <h3>热门话题</h3>
@@ -121,6 +166,7 @@
                     </ul>
                 </div>
             </div>
+
         </div>
     </div>
     <div id="footer" class="">

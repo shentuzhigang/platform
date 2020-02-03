@@ -92,6 +92,8 @@
                                       name="description"
                                       aria-describedby="问题描述"
                                       placeholder="问题描述"
+                                      cols="30"
+                                      rows="10"
                                       th:text="${description}"
                             ></textarea>
                             <small id="description" class="form-text text-muted">We'll never share your email with anyone else.</small>
@@ -108,7 +110,7 @@
                         </div>
                         <div>
                             <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error != null}" ></div>
-                            <button type="submit" class="btn btn-primary">发布</button>
+                            <button type="submit" class="btn btn-primary float-right">发布</button>
                         </div>
                     </form>
 
@@ -123,7 +125,6 @@
                     </ul>
                 </div>
             </div>
-
         </div>
     </div>
     <div id="footer" class="">

@@ -1,6 +1,7 @@
 package club.zstuca.platform.controller;
 
 
+import club.zstuca.platform.dto.PaginationDTO;
 import club.zstuca.platform.dto.QuestionDTO;
 import club.zstuca.platform.mapper.QuestionMapper;
 import club.zstuca.platform.mapper.UserMapper;
@@ -37,6 +38,8 @@ public class IndexController {
     @GetMapping("/index")
     public String index(HttpServletRequest request,
                         HttpServletResponse response,
+                        @RequestParam(value = "page",defaultValue = "1") Integer page,
+                        @RequestParam(value = "size",defaultValue = "5") Integer size,
                         Model model){
         Cookie[] cookies = request.getCookies();
         if(cookies != null){
@@ -53,9 +56,9 @@ public class IndexController {
         }
 
 
-        List<QuestionDTO> questionDTOlist = questionService.list();
-        System.out.println(questionDTOlist);
-        model.addAttribute("questions",questionDTOlist);
+        PaginationDTO paginationDTO = questionService.listAndLimit(page,size);
+        System.out.println(paginationDTO);
+        model.addAttribute("pagination",paginationDTO);
         return "index";
     }
     @GetMapping("/publish")

@@ -1,5 +1,6 @@
 package club.zstuca.platform.service;
 
+import club.zstuca.platform.dto.PaginationDTO;
 import club.zstuca.platform.dto.QuestionDTO;
 import club.zstuca.platform.mapper.QuestionMapper;
 import club.zstuca.platform.mapper.UserMapper;
@@ -21,8 +22,38 @@ public class QuestionService {
     @Autowired
     private QuestionMapper questionMapper;
 
+    /**
+     *
+     * @return
+     */
     public List<QuestionDTO> list() {
-        List<Question> questions = questionMapper.list();
+       return findByQuestionCreator(questionMapper.list());
+    }
+
+    /**
+     *
+     * @param page
+     * @param size
+     * @return
+     */
+    public PaginationDTO listAndLimit(Integer page, Integer size) {
+
+        PaginationDTO paginationDTO = new PaginationDTO();
+        Integer totalCount = questionMapper.count();
+        paginationDTO.setPagination(totalCount,page,size);
+        page = paginationDTO.getNowPage();
+        Integer offset = size * (page - 1);
+        paginationDTO.setQuestionDTOList(findByQuestionCreator(questionMapper.listAndLimit(offset,size)));
+        return paginationDTO;
+    }
+
+    /**
+     *
+     * @param questions
+     * @return
+     */
+
+    public List<QuestionDTO> findByQuestionCreator(List<Question> questions){
         List<QuestionDTO> questionDTOs = new ArrayList<>();
         for (Question question : questions){
             User user = userMapper.findById(question.getCreator());
