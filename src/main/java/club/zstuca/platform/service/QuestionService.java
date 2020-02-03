@@ -47,6 +47,16 @@ public class QuestionService {
         return paginationDTO;
     }
 
+    public PaginationDTO listAndLimitByCreator(Integer creatorId,Integer page, Integer size){
+        PaginationDTO paginationDTO = new PaginationDTO();
+        Integer totalCount = questionMapper.countByCreator(creatorId);
+        paginationDTO.setPagination(totalCount,page,size);
+        page = paginationDTO.getNowPage();
+        Integer offset = size * (page - 1);
+        paginationDTO.setQuestionDTOList(findByQuestionCreator(questionMapper.listAndLimitByCreator(creatorId,offset,size)));
+        return paginationDTO;
+    }
+
     /**
      *
      * @param questions
@@ -64,4 +74,6 @@ public class QuestionService {
         }
         return questionDTOs;
     }
+
+
 }

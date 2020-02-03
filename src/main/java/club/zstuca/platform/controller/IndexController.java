@@ -120,4 +120,9 @@ public class IndexController {
         questionMapper.create(question);
         return "redirect:index";
     }
+
+    @GetMapping("/profile")
+    public String profile(){
+        return "redirect:profile/questions";
+    }
 }

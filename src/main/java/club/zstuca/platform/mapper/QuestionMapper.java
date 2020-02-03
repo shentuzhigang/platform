@@ -20,4 +20,8 @@ public interface QuestionMapper {
     List<Question> listAndLimit(@Param("offset") Integer offset,@Param("size") Integer size);
     @Select("SELECT count(1) FROM question")
     Integer count();
+    @Select("SELECT count(1) FROM question WHERE creator=#{creator}")
+    Integer countByCreator(@Param("creator")Integer creatorId);
+    @Select("SELECT * FROM question WHERE creator=#{creator} LIMIT #{offset}, #{size}")
+    List<Question> listAndLimitByCreator(@Param("creator")Integer creatorId,@Param("offset") Integer offset,@Param("size") Integer size);
 }
