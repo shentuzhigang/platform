@@ -27,7 +27,11 @@
                             </a>
                         </div>
                         <div class="media-body  col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                            <h4 class="media-heading mt-0" th:text="${question.title}">Media heading</h4>
+                            <h4 class="media-heading mt-0" >
+                                <a th:href="@{'/question/'+${question.id}}">
+                                    <span th:text="${question.title}">Media heading</span>
+                                </a>
+                            </h4>
                             <p th:text="${question.description}">
                                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                             </p>

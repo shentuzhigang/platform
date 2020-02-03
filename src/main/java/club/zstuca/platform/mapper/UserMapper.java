@@ -1,10 +1,7 @@
 package club.zstuca.platform.mapper;
 
 import club.zstuca.platform.model.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
 @Mapper
@@ -17,4 +14,8 @@ public interface UserMapper {
     User findByToken(@Param("token") String token);
     @Select("SELECT * FROM user WHERE id=#{id}")
     User findById(@Param("id") Integer creator);
+    @Select("SELECT * FROM user WHERE account_id=#{accountId}")
+    User findByAccountId(@Param("accountId")String accountId);
+    @Update("UPDATE user SET token = #{token},gmt_modified = #{gmtModified} WHERE account_id=#{accountId}")
+    void update(User user);
 }

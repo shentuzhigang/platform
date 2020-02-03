@@ -1,5 +1,6 @@
 package club.zstuca.platform.mapper;
 
+import club.zstuca.platform.dto.QuestionDTO;
 import club.zstuca.platform.model.Question;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -24,4 +25,6 @@ public interface QuestionMapper {
     Integer countByCreator(@Param("creator")Integer creatorId);
     @Select("SELECT * FROM question WHERE creator=#{creator} LIMIT #{offset}, #{size}")
     List<Question> listAndLimitByCreator(@Param("creator")Integer creatorId,@Param("offset") Integer offset,@Param("size") Integer size);
+    @Select("SELECT * FROM question WHERE id=#{id}")
+    Question findById(@Param("id")Integer id);
 }

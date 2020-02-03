@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Question</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.css" >
+    <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:insert="~{navigation :: nav}"></div>
+    <div class="container" style="margin-top: 15px">
+        <div class="container-fluid" style="margin: 25px">
+            <div class="row">
+                <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                    <h2>
+                        <span th:text="${question.title}">One of three columns</span>
+                    </h2>
+                    <span>
+                        作者：<span th:text="${question.user.name}"></span>
+                        发布时间：<span th:text="${#dates.format(question.gmtCreate,'yyy-MM-dd HH:mm')}"></span>
+                        阅读数：<span th:text="${question.viewCount}"></span>
+                    </span>
+                    <hr>
+                    <div th:text="${question.description}"></div>
+                    <hr>
+                    <a th:href="'/publish/'+${question.id}"
+                        th:if="${session.user != null && session.user.id == question.creator}"
+                    >
+                        <i class="icon-edit"></i>
+                        <span>编辑</span>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h4>发起人</h4>
+                        <div class="media">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img class="media-object img-circle rounded"
+                                        th:src="${question.user.avatarUrl}"
+                                    >
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h5 class="media-heading">
+                                    <span th:text="${question.user.name}"></span>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h4>相关问题</h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="footer" class="">
+        <div class="" style="text-align: center">
+            <a href="#"><span class="">计算机协会技术支持</span></a>
+            <a href="http://www.beian.miit.gov.cn/"><span class="">浙ICP备19031217号-1</span></a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
