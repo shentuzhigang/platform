@@ -8,63 +8,7 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">My ZSTU</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-            <ul class="nav navbar-nav navabr-right">
-                <li th:if="${session.user != null}">
-                    <a class="btn btn-success my-2 my-sm-0 ml-sm-2" href="/publish" role="button">发布</a>
-                </li>
-                <li class="nav-item dropdown" th:if="${session.user != null}">
-                    <a class="nav-link dropdown-toggle" href="#" id="login" role="button" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}">
-
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">退出</a>
-                    </div>
-                </li>
-                <li class="nav-item" th:if="${session.user == null}">
-                    <a class="btn btn-primary my-2 my-sm-0"
-                       href="https://github.com/login/oauth/authorize?client_id=27dda83ebd33236043d4&redirect_uri=http://localhost:8080/callback&scope=user&state=1"
-                       role="button">Login</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <div th:insert="~{navigation :: nav}"></div>
     <div class="container" style="margin-top: 15px">
         <div class="container-fluid" style="margin: 25px">
             <div class="jumbotron">
