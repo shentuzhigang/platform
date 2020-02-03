@@ -41,19 +41,7 @@ public class IndexController {
                         @RequestParam(value = "page",defaultValue = "1") Integer page,
                         @RequestParam(value = "size",defaultValue = "5") Integer size,
                         Model model){
-        Cookie[] cookies = request.getCookies();
-        if(cookies != null){
-            for(Cookie cookie:cookies){
-                if(cookie.getName().equals("token")){
-                    String token = cookie.getValue();
-                    User user = userMapper.findByToken(token);
-                    if(user != null){
-                        request.getSession().setAttribute("user",user);
-                    }
-                    break;
-                }
-            }
-        }
+        User user = (User)request.getSession().getAttribute("user");
 
 
         PaginationDTO paginationDTO = questionService.listAndLimit(page,size);
@@ -91,20 +79,7 @@ public class IndexController {
         }
 
 
-        Cookie[] cookies = request.getCookies();
-        User user=null;
-        if(cookies != null){
-            for(Cookie cookie:cookies){
-                if(cookie.getName().equals("token")){
-                    String token = cookie.getValue();
-                    user = userMapper.findByToken(token);
-                    if(user != null){
-                        request.getSession().setAttribute("user",user);
-                    }
-                    break;
-                }
-            }
-        }
+        User user = (User)request.getSession().getAttribute("user");
         if(user==null){
             model.addAttribute("error","用户未登录");
             return "publish";
