@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -45,10 +46,27 @@ public class IndexController {
 
 
         PaginationDTO paginationDTO = questionService.listAndLimit(page,size);
-        System.out.println(paginationDTO);
         model.addAttribute("pagination",paginationDTO);
         return "index";
     }
+    @GetMapping("/publish/{id}")
+    public String publish(@PathVariable("id") Integer id,
+                          HttpServletRequest request,
+                          HttpServletResponse response,
+                          Model model){
+        User user = (User)request.getSession().getAttribute("user");
+        Question question = questionMapper.selectByPrimaryKey(id);
+        if(user==null){
+            return "redirect:publish";
+        }else if(user.getId()!=question.getCreator()){
+            return "redirect:index";
+        }
+        model.addAttribute("title",question.getTitle());
+        model.addAttribute("description",question.getDescription());
+        model.addAttribute("tag",question.getTag());
+        return "publish";
+    }
+
     @GetMapping("/publish")
     public String publish(){
         return "publish";
@@ -65,6 +83,11 @@ public class IndexController {
         model.addAttribute("title",title);
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
+        User user = (User)request.getSession().getAttribute("user");
+        if(user==null){
+            model.addAttribute("error","用户未登录");
+            return "publish";
+        }
         if(title==null || title.equals("")){
             model.addAttribute("error","标题NULL");
             return "publish";
@@ -77,14 +100,6 @@ public class IndexController {
             model.addAttribute("error","标签NULL");
             return "publish";
         }
-
-
-        User user = (User)request.getSession().getAttribute("user");
-        if(user==null){
-            model.addAttribute("error","用户未登录");
-            return "publish";
-        }
-
         Question question =new Question();
         question.setTitle(title);
         question.setDescription(description);
@@ -92,7 +107,7 @@ public class IndexController {
         question.setCreator(user.getId());
         question.setGmtCreate(System.currentTimeMillis());
         question.setGmtModified(question.getGmtCreate());
-        questionMapper.create(question);
+        questionMapper.insert(question);
         return "redirect:index";
     }
 
