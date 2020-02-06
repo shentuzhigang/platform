@@ -110,6 +110,27 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>6.2.1</version>
+                <configuration>
+                    <url>jdbc:mysql://47.111.94.182:3306/stzg?useSSL=false&amp;serverTimezone=UTC</url>
+                    <user>stzg</user>
+                    <password>123456</password>
+                    <schemas>
+                        <schema>stzg</schema>
+                    </schemas>
+                </configuration>
+                <dependencies>
+                    <!--MySQL-->
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>8.0.17</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>1.4.0</version>
